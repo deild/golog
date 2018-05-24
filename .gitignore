@@ -28,3 +28,4 @@ _testmain.go
 
 vendor
 golog
+coverage.txt
