@@ -6,6 +6,7 @@
 
 [![Build Status](https://travis-ci.org/deild/golog.svg)](https://travis-ci.org/deild/golog)
 [![Coverage](http://gocover.io/_badge/github.com/deild/golog?0)](http://gocover.io/github.com/deild/golog)
+[![Coverage Status](https://coveralls.io/repos/github/deild/golog/badge.svg?branch=master)](https://coveralls.io/github/deild/golog?branch=master)
 [![Go Report Card](https://goreportcard.com/badge/github.com/deild/golog)](https://goreportcard.com/report/github.com/deild/golog)
 
 `golog` is an easy and lightweight CLI tool to time track your tasks. The goal is to enable to track concurrent from small to big tasks.
