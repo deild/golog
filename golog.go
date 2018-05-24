@@ -6,8 +6,8 @@ import (
 	"regexp"
 	"time"
 
-	"github.com/codegangsta/cli"
 	"github.com/mitchellh/go-homedir"
+	"github.com/urfave/cli"
 )
 
 const alphanumericRegex = "^[a-zA-Z0-9_-]*$"
@@ -46,6 +46,7 @@ var commands = []cli.Command{
 		Action: List,
 	},
 }
+var version = "0.1"
 
 // Start a given task
 func Start(context *cli.Context) error {
@@ -149,7 +150,7 @@ func main() {
 	app := cli.NewApp()
 	app.Name = "Golog"
 	app.Usage = "Easy CLI time tracker for your tasks"
-	app.Version = "0.1"
+	app.Version = version
 	app.EnableBashCompletion = true
 	app.Commands = commands
 	err := app.Run(os.Args)
