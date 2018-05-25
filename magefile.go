@@ -1,5 +1,6 @@
 // +build mage
 
+// nolint
 package main
 
 import (
@@ -28,6 +29,10 @@ func GetDeps() error {
 // Clean files and folders used for test data or binaries
 func Clean() error {
 	err := sh.Rm("golog")
+	if err != nil {
+		return err
+	}
+	err = sh.Rm("coverage.txt")
 	if err != nil {
 		return err
 	}

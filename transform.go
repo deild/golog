@@ -2,7 +2,6 @@ package main
 
 import (
 	"fmt"
-	"math"
 	"os"
 	"time"
 )
@@ -42,11 +41,11 @@ func (transformer *Transformer) Transform() map[string]string {
 
 // SecondsToHuman returns an human readable string from seconds
 func (transformer *Transformer) SecondsToHuman(totalSeconds int) string {
-	hours := math.Floor(float64(((totalSeconds % 31536000) % 86400) / 3600))
-	minutes := math.Floor(float64((((totalSeconds % 31536000) % 86400) % 3600) / 60))
+	hours := ((totalSeconds % 31536000) % 86400) / 3600
+	minutes := (((totalSeconds % 31536000) % 86400) % 3600) / 60
 	seconds := (((totalSeconds % 31536000) % 86400) % 3600) % 60
 
-	return fmt.Sprintf("%dh:%dm:%ds", int(hours), int(minutes), int(seconds))
+	return fmt.Sprintf("%dh:%dm:%ds", hours, minutes, seconds)
 }
 
 // TrackingToSeconds get entries from storage by identifier and calculate

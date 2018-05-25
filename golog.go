@@ -46,7 +46,7 @@ var commands = []cli.Command{
 		Action: List,
 	},
 }
-var version = "0.1"
+var version = "0.1.0"
 
 // Start a given task
 func Start(context *cli.Context) error {
@@ -140,7 +140,10 @@ func IsValidIdentifier(identifier string) bool {
 
 func checkInitialDbFile() {
 	if _, err := os.Stat(dbPath); os.IsNotExist(err) {
-		os.Create(dbPath)
+		_, err = os.Create(dbPath)
+		if err != nil {
+			fmt.Println("Can't create DB file", err)
+		}
 	}
 }
 
