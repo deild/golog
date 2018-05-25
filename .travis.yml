@@ -7,5 +7,6 @@ install: vgo vendor
 script:
   - vgo build -o golog .
   - vgo test -race -coverprofile=coverage.txt -covermode=atomic ./...
-after_script: goveralls -service=travis-ci
-after_success: bash <(curl -s https://codecov.io/bash)
+after_success:
+  - goveralls -coverprofile=coverage.text -service=travis-ci
+  - bash <(curl -s https://codecov.io/bash)
