@@ -10,3 +10,5 @@ script:
 after_success:
   - goveralls -coverprofile=coverage.text -service=travis-ci
   - bash <(curl -s https://codecov.io/bash)
+notifications:
+  email: false
