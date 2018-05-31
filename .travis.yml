@@ -1,12 +1,11 @@
 language: go
 go: 1.10.2
 before_install:
-  - go get -u golang.org/x/vgo
+  - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
   - go get github.com/mattn/goveralls
-install: vgo vendor
+install: dep ensure
 script:
-  - vgo build -o golog .
-  - vgo test -race -coverprofile=coverage.txt -covermode=atomic ./...
+  - mage all
 after_success:
   - goveralls -coverprofile=coverage.text -service=travis-ci
   - bash <(curl -s https://codecov.io/bash)

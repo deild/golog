@@ -11,22 +11,18 @@ import (
 	"github.com/magefile/mage/sh"
 )
 
-// A build step that requires additional params, or platform specific steps for example
+// A build step
 func Build() error {
 	mg.Deps(GetDeps)
-	return sh.RunV("vgo", "build", "-o", "golog", ".")
+	return sh.RunV("go", "build", "-o", "golog", ".")
 }
 
 // Manage your deps, or running package managers.
 func GetDeps() error {
-	err := sh.RunV("go", "get", "-u", "golang.org/x/vgo")
-	if err != nil {
-		return err
-	}
-	return sh.RunV("vgo", "vendor")
+	return sh.RunV("dep", "ensure")
 }
 
-// Clean files and folders used for test data or binaries
+// Clean files and folders used for test data or binaries.
 func Clean() error {
 	err := sh.Rm("golog")
 	if err != nil {
@@ -40,13 +36,13 @@ func Clean() error {
 
 }
 
-// Run tests
+// Run tests.
 func Test() error {
 	args := []string{"test", "-race", "-coverprofile=coverage.txt", "-covermode=atomic", "./..."}
 	if mg.Verbose() {
 		args = append(args, "-v")
 	}
-	return sh.RunV("vgo", args...)
+	return sh.RunV("go", args...)
 }
 
 // Generates a new release. Expects the TAG environment variable to be set,
@@ -55,7 +51,7 @@ func Release() (err error) {
 	if os.Getenv("TAG") == "" {
 		return errors.New("MSG and TAG environment variables are required")
 	}
-	if err := sh.RunV("git", "tag", "-a", "$TAG"); err != nil {
+	if err := sh.RunV("git", "tag", "-a", "$TAG", "-m", "$TAG"); err != nil {
 		return err
 	}
 	if err := sh.RunV("git", "push", "origin", "$TAG"); err != nil {
@@ -70,7 +66,12 @@ func Release() (err error) {
 	return sh.RunV("goreleaser", "--rm-dist")
 }
 
-// Clean, Build, Tests
+// Generates a new snapshot.
+func Snapshot() error {
+	return sh.RunV("goreleaser", "--rm-dist", "--snapshot")
+}
+
+// Clean, Build, Tests.
 func All() {
 	mg.SerialDeps(Clean, Build, Test)
 }
