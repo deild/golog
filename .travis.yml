@@ -3,6 +3,7 @@ go: 1.10.2
 before_install:
   - curl https://raw.githubusercontent.com/golang/dep/master/install.sh | sh
   - go get github.com/mattn/goveralls
+  - go get github.com/magefile/mage
 install: dep ensure
 script:
   - mage all
