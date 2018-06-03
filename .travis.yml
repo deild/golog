@@ -8,7 +8,7 @@ install: dep ensure
 script:
   - mage all
 after_success:
-  - goveralls -coverprofile=coverage.text -service=travis-ci
+  - goveralls -coverprofile=coverage.txt -service=travis-ci
   - bash <(curl -s https://codecov.io/bash)
 notifications:
   email: false
